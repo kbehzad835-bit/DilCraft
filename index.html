@@ -1,162 +1,559 @@
-```html
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Minecraft Server</title>
+<title>DilCraft | Minecraft Server</title>
 
 <style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    color:white;
+    background:
+    radial-gradient(circle at 50% 20%, #5421a8 0%, transparent 25%),
+    linear-gradient(135deg,#03030b,#09001a,#02030b);
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* Background effects */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+    radial-gradient(circle at 20% 30%,rgba(80,0,255,.25),transparent 25%),
+    radial-gradient(circle at 80% 40%,rgba(180,0,255,.20),transparent 25%);
+    pointer-events:none;
+}
+
+/* NAVBAR */
+
+nav{
+    position:relative;
+    z-index:10;
+    width:100%;
+    padding:20px 6%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:rgba(5,5,15,.75);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid rgba(150,50,255,.3);
+}
+
+.logo{
+    font-size:32px;
+    font-weight:900;
+    letter-spacing:2px;
+    background:linear-gradient(90deg,#ffffff,#b43cff,#7c00ff);
+    -webkit-background-clip:text;
+    color:transparent;
+    text-shadow:0 0 25px #7b00ff;
+}
+
+.nav-links{
+    display:flex;
+    gap:30px;
+}
+
+.nav-links a{
+    color:#ddd;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:#bd55ff;
+    text-shadow:0 0 15px #a000ff;
+}
+
+/* HERO */
+
+.hero{
+    position:relative;
+    min-height:550px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:80px 20px;
+    background:
+    linear-gradient(rgba(3,0,15,.25),rgba(3,0,15,.95)),
+    radial-gradient(circle at 50% 30%,#6620a8,#0a0318 55%,#020208);
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    width:500px;
+    height:500px;
+    background:#7c00ff;
+    filter:blur(180px);
+    opacity:.25;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+}
+
+.hero h1{
+    font-size:clamp(55px,10vw,110px);
+    font-weight:1000;
+    letter-spacing:5px;
+    background:linear-gradient(90deg,#fff,#c84cff,#7c00ff);
+    -webkit-background-clip:text;
+    color:transparent;
+    text-shadow:0 0 35px #7c00ff;
+}
+
+.crown{
+    font-size:50px;
+    margin-bottom:-10px;
+}
+
+.hero h2{
+    font-size:clamp(20px,4vw,35px);
+    margin:15px 0;
+    color:#e7baff;
+}
+
+.hero p{
+    color:#aaa;
+    font-size:18px;
+}
+
+/* SERVER IP */
+
+.ip-box{
+    margin:30px auto;
+    max-width:650px;
+    padding:18px 25px;
+    border:1px solid #9b35ff;
+    border-radius:15px;
+    background:rgba(20,5,35,.75);
+    box-shadow:0 0 30px rgba(130,0,255,.3);
+}
+
+.ip-title{
+    color:#aaa;
+    font-size:14px;
+    margin-bottom:7px;
+}
+
+.ip{
+    color:#d46cff;
+    font-size:24px;
+    font-weight:bold;
+    word-break:break-all;
+}
+
+.copy-btn{
+    margin-top:15px;
+    border:0;
+    padding:12px 25px;
+    border-radius:8px;
+    cursor:pointer;
+    background:linear-gradient(90deg,#7c00ff,#d500ff);
+    color:white;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.copy-btn:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 25px #9c00ff;
+}
+
+/* GAME MODES */
+
+.section{
+    position:relative;
+    padding:70px 6%;
+    text-align:center;
+}
+
+.section-title{
+    font-size:40px;
+    margin-bottom:40px;
+    color:#d99aff;
+    text-shadow:0 0 20px #8500ff;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+    max-width:1100px;
+    margin:auto;
+}
+
+.card{
+    position:relative;
+    padding:40px 25px;
+    min-height:260px;
+    border-radius:18px;
+    background:linear-gradient(145deg,#171022,#09070e);
+    border:1px solid #542080;
+    overflow:hidden;
+    transition:.4s;
+}
+
+.card::before{
+    content:"";
+    position:absolute;
+    width:150px;
+    height:150px;
+    background:#8500ff;
+    filter:blur(80px);
+    opacity:.2;
+    top:-50px;
+    right:-40px;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    border-color:#c03cff;
+    box-shadow:0 0 35px rgba(150,0,255,.35);
+}
+
+.icon{
+    font-size:55px;
+    margin-bottom:15px;
+}
+
+.card h3{
+    font-size:30px;
+    margin-bottom:12px;
+}
+
+.card p{
+    color:#aaa;
+    line-height:1.6;
+    margin-bottom:25px;
+}
+
+.btn{
+    display:inline-block;
+    padding:11px 22px;
+    border:1px solid #a52cff;
+    border-radius:8px;
+    color:#d58aff;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.btn:hover{
+    background:#8c00ff;
+    color:white;
+    box-shadow:0 0 20px #8c00ff;
+}
+
+/* FEATURES */
+
+.features{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:60px;
+    padding:40px 20px 80px;
+}
+
+.feature{
+    text-align:center;
+    min-width:160px;
+}
+
+.feature-icon{
+    font-size:35px;
+    margin-bottom:10px;
+}
+
+.feature h4{
+    font-size:18px;
+}
+
+.feature p{
+    color:#888;
+    margin-top:5px;
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    padding:35px;
+    background:#050509;
+    border-top:1px solid #21102d;
+    color:#777;
+}
+
+footer strong{
+    color:#c34cff;
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+    nav{
+        padding:18px;
     }
 
-    body {
-        font-family: Arial, sans-serif;
-        background: #080808;
-        color: white;
-        text-align: center;
+    .nav-links{
+        display:none;
     }
 
-    header {
-        padding: 25px;
-        background: #111;
-        border-bottom: 2px solid #2ecc71;
+    .logo{
+        margin:auto;
     }
 
-    header h1 {
-        font-size: 35px;
-        color: #2ecc71;
+    .hero{
+        min-height:500px;
     }
 
-    header p {
-        margin-top: 8px;
-        color: #aaa;
+    .cards{
+        grid-template-columns:1fr;
+        max-width:400px;
     }
 
-    .hero {
-        padding: 80px 20px;
-        background: linear-gradient(#0009, #000),
-                    linear-gradient(135deg, #123, #050505);
+    .section{
+        padding:50px 18px;
     }
 
-    .hero h2 {
-        font-size: 42px;
-        margin-bottom: 15px;
+    .ip{
+        font-size:19px;
     }
 
-    .hero p {
-        color: #bbb;
-        font-size: 18px;
-        margin-bottom: 25px;
+    .features{
+        gap:35px;
     }
+}
 
-    .button {
-        display: inline-block;
-        padding: 14px 30px;
-        background: #2ecc71;
-        color: #000;
-        text-decoration: none;
-        font-weight: bold;
-        border-radius: 8px;
-    }
-
-    .section {
-        padding: 45px 20px;
-    }
-
-    .section h2 {
-        margin-bottom: 30px;
-        color: #2ecc71;
-    }
-
-    .cards {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        flex-wrap: wrap;
-    }
-
-    .card {
-        background: #151515;
-        width: 250px;
-        padding: 25px;
-        border-radius: 12px;
-        border: 1px solid #292929;
-    }
-
-    .card h3 {
-        margin-bottom: 10px;
-    }
-
-    .card p {
-        color: #aaa;
-    }
-
-    .ip {
-        margin-top: 30px;
-        padding: 18px;
-        background: #101010;
-        border-radius: 10px;
-        color: #2ecc71;
-        font-size: 20px;
-    }
-
-    footer {
-        padding: 25px;
-        background: #111;
-        color: #777;
-    }
 </style>
 </head>
 
 <body>
 
-<header>
-    <h1>MINECRAFT</h1>
-    <p>سرور گیمینگ ما</p>
-</header>
+<!-- NAVIGATION -->
 
-<section class="hero">
-    <h2>به سرور ما خوش آمدید!</h2>
-    <p>یک ماجراجویی جدید در دنیای Minecraft منتظر شماست.</p>
-    <a class="button" href="#games">مشاهده گیم‌مودها</a>
+<nav>
+
+    <div class="logo">
+        DilCraft
+    </div>
+
+    <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#modes">Game Modes</a>
+        <a href="#features">Features</a>
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <div class="crown">👑</div>
+
+        <h1>DilCraft</h1>
+
+        <h2>More Than A Server...</h2>
+
+        <p>
+            Play together. Build together. Create your own adventure.
+        </p>
+
+        <div class="ip-box">
+
+            <div class="ip-title">
+                SERVER IP
+            </div>
+
+            <div class="ip" id="serverIP">
+                dragon.9craft.ir:16575
+            </div>
+
+            <button class="copy-btn" onclick="copyIP()">
+                📋 Copy IP
+            </button>
+
+        </div>
+
+    </div>
+
 </section>
 
-<section class="section" id="games">
-    <h2>گیم‌مودها</h2>
+
+<!-- GAME MODES -->
+
+<section class="section" id="modes">
+
+    <h2 class="section-title">
+        Game Modes
+    </h2>
 
     <div class="cards">
 
         <div class="card">
-            <h3>⚔️ BedWars</h3>
-            <p>با دوستانت بجنگ و تخت حریف رو نابود کن!</p>
+
+            <div class="icon">☁️</div>
+
+            <h3>SkyMine</h3>
+
+            <p>
+                Mine, expand and build your own sky island.
+                Start small and become powerful.
+            </p>
+
+            <a class="btn" href="#">
+                Learn More →
+            </a>
+
         </div>
 
-        <div class="card">
-            <h3>🌍 Survival</h3>
-            <p>دنیای خودت رو بساز و برای بقا تلاش کن.</p>
-        </div>
 
         <div class="card">
-            <h3>☁️ SkyMine</h3>
-            <p>در آسمان معدن بزن و پیشرفت کن.</p>
+
+            <div class="icon">🌲</div>
+
+            <h3>Survival</h3>
+
+            <p>
+                Gather resources, build your base,
+                explore the world and survive.
+            </p>
+
+            <a class="btn" href="#">
+                Learn More →
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">👥</div>
+
+            <h3>SMP</h3>
+
+            <p>
+                Make friends, build together,
+                create your story and enjoy the world.
+            </p>
+
+            <a class="btn" href="#">
+                Learn More →
+            </a>
+
         </div>
 
     </div>
 
-    <div class="ip">
-        IP: play.example.com
-    </div>
 </section>
 
+
+<!-- FEATURES -->
+
+<section class="features" id="features">
+
+    <div class="feature">
+
+        <div class="feature-icon">
+            ⚡
+        </div>
+
+        <h4>High Performance</h4>
+
+        <p>Enjoy smooth gameplay.</p>
+
+    </div>
+
+
+    <div class="feature">
+
+        <div class="feature-icon">
+            🛡️
+        </div>
+
+        <h4>Safe & Fair</h4>
+
+        <p>Play fair and have fun.</p>
+
+    </div>
+
+
+    <div class="feature">
+
+        <div class="feature-icon">
+            ❤️
+        </div>
+
+        <h4>Active Community</h4>
+
+        <p>Play together with friends.</p>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
 <footer>
-    ساخته شده برای بازیکنان Minecraft ❤️
+
+    <strong>DilCraft</strong>
+
+    <br><br>
+
+    Minecraft Server
+
+    <br><br>
+
+    More than a server... It's a family! 👑
+
 </footer>
+
+
+<script>
+
+function copyIP(){
+
+    const ip = "dragon.9craft.ir:16575";
+
+    navigator.clipboard.writeText(ip);
+
+    const button = document.querySelector(".copy-btn");
+
+    button.innerText = "✓ IP Copied!";
+
+    setTimeout(function(){
+
+        button.innerText = "📋 Copy IP";
+
+    },2000);
+
+}
+
+</script>
 
 </body>
 </html>
-```
